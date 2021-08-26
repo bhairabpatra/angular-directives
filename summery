@@ -1,0 +1,121 @@
+https://medium.com/@venkateshece1105/concepts-of-angular-directives-527ae0ca5995
+
+Concepts Of Angular Directives
+
+
+What is Directives???
+Directives are custom HTML attributes which tell angular to change the style or behavior of the Dom elements.
+
+When we say that components are the building blocks of Angular applications, we are actually saying that directives are the building blocks of Angular applications.
+
+Types:
+Components — directives with a template.
+Structural directives — change the DOM layout by adding and removing DOM elements.
+Attribute directives — change the appearance or behavior of an element, component, or another directive.
+
+Angular Directives
+1.Component Directives:
+Directives must be declared in Angular Modules in the same manner as components.
+These form the main class having details of how the component should be processed,used at run-time. directive in Angular is a reusable component
+The other two directive types, attribute and structural, do not have templates.
+It is decorated with the @component decorator.
+
+
+Example: change-text. directive
+import { Directive } from '@angular/core';
+@Directive({
+   selector: '[changeText]'
+})
+
+export class ChangeTextDirective {
+   constructor() { }
+}
+app.component.html
+<div style="text-align:center">
+   <span changeText >Welcome to {{title}}.</span>
+</div>
+change-text.directive.ts
+import { Directive, ElementRef} from '@angular/core';
+@Directive({
+   selector: '[changeText]'
+})
+
+
+
+export class ChangeTextDirective {
+   constructor(Element: ElementRef) {
+      console.log(Element);
+      Element.nativeElement.innerText="Text is changed by changeText Directive. ";
+   }
+}
+
+
+
+In the above file, there is a class called ChangeTextDirective and a constructor, which takes the element of type ElementRef, which is mandatory. The element has all the details to which the Change Directive is applied.
+we can also see the output in the console.log.
+
+
+2.Structural Directives:
+
+Structural Directives are responsible for changing the structure of the DOM. They work by adding or removing the elements from the DOM, unlike Attribute Directives which just change the element’s appearance and behavior.
+You can easily differentiate between the Structural and Attribute Directive by looking at the syntax. The Structural Directive’s name always starts with an asterisk(*) prefix, whereas Attribute Directive does not contain any prefix.
+3 most popular structural directives:
+
+
+NgIf,
+NgFor,
+NgSwitch.
+NgIf
+
+It is used to create or remove a part of the DOM tree depending on a condition.
+NgFor
+
+It is used to customize data display. It is mainly used for displaying a list of items using repetitive loops.
+NgSwitch
+
+It is like the JavaScript switch. It can display one element from among several possible elements, based on a switch condition. Angular puts only the selected element into the DOM.
+Example For NgIf:
+Expression is true and ngIf is true.
+This paragraph will be included in the DOM.
+Expression is false and ngIf is false.
+This paragraph will not be included in the DOM.
+<div *ngIf=”movie”>{{movie.name}}</div>
+<div template=”ngIf movie”>{{movie.name}}</div>
+<ng-template [ngIf]=”movie”>
+<div>{{movie.name}}</div>
+</ng-template>
+The *ngIf directive moved to the <ng-template> element where it became a property binding,[ngIf].
+Example For Ngfor:
+<div *ngFor="let movie of movies">{{movie.name}}</div>
+<div template="ngFor let movie of movies">{{movie.name}}</div>
+<ng-template ngFor let-movie [ngFor]="movies">{{movie.name}}
+</ng-template>
+The let keyword declares a template input variable that you reference within the template. The input variables in this example is movie. The parser translates let movie into variables named, let-movie.
+As the NgFor directive loops through the list, it sets and resets properties of its own context
+Example For Ngswitch:
+<div> <ng-template [ngSwitch]="'sad'">
+<horror-movie [movie]="movie"></horror-movie>
+</ng-template> </div>
+The Angular NgSwitch is actually a set of cooperating directives: NgSwitch, NgSwitchCase, and NgSwitchDefault.
+NgSwitchCase and NgSwitchDefault are structural directives. You attach them to elements using the asterisk (*) prefix notation. A NgSwitchCase displays its host element when its value matches the switch value. The NgSwitchDefault displays its host element when no sibling NgSwitchCase matches the switch value.
+3.Attribute Directives:
+Attribute directives manipulate the DOM by changing its behavior and appearance.
+We use attribute directives to apply conditional style to elements, show or hide elements or dynamically change the behavior of a component according to a changing property.
+Angular provides many built-in Attribute Directives like NgStyle, NgClass, etc. We can also create our own custom Attribute Directives for our desired functionality.
+NgStyle Directive is an Attribute directive used to change the styling of any DOM element on the basis of some condition.
+<p [ngStyle]="{'background': isBlue ? 'blue' : 'red'}"> I am an Attribute Directive</p>
+In the above code snippet, we are adding a blue background if the value of isBlue variable is true. If the value of isBlue variable is false, then the background of the above element will be red.
+Example:
+To use the new hoverDirective, add a paragraph (<p>) element to the template of the root AppComponent and apply the directive as an attribute.
+src/app/app.component.html
+<p>content_copy<hoverme>hover me!</p>
+Now run the application to see the HoverDirective in action.
+Enter the cli command ngserve
+To summarize, Angular found the appHover attribute on the host <p> element. It created an instance of the HoverDirective class and injected a reference to the <p> element into the directive's constructor which sets the <p> element's background style to yellow.
+@HoverListener('mouseenter') onMouseEnter() {   this.highlight('yellow'); }  @HoverListener('mouseleave') onMouseLeave() {   this.highlight(null); }  private highlight(color: string) {   this.el.nativeElement.style.backgroundColor = color; }
+Of course you could reach into the DOM with standard JavaScript and attach event listeners manually. There are at least three problems with that approach:
+You have to write the listeners correctly.
+The code must detach the listener when the directive is destroyed to avoid memory leaks.
+Talking to DOM API directly isn’t a best practice.
+Thats all, part of directives in Angular
+If you enjoyed this blog post, share it with a friend….

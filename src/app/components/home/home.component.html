@@ -1,0 +1,43 @@
+<p>home works!</p>
+
+<button class="" (click) ="ngClick()" >ngIf-click</button>
+<div class="" *ngIf="isActive ; else elseBlock">
+  <h1>NgIf</h1>
+  <p>It is used to create or remove a part of the DOM tree depending on a condition.</p>
+</div>
+
+
+<ng-template #elseBlock>
+  <h1>Else block</h1>
+</ng-template>
+
+
+
+<div class="ngfor">
+    <ul>
+        <li *ngFor="let name1 of names">
+              <p>{{name1.name}}</p>
+              <p>{{name1.age}}</p>
+        </li>
+    </ul>
+</div>
+
+
+<select [(ngModel)]="selectedValue">
+  <option *ngFor="let item of items;" [value]="item.name">{{item.name}}</option>
+</select>
+<div class='row' [ngSwitch]="selectedValue">
+  <div *ngSwitchCase="'One'">One is Pressed</div>
+  <div *ngSwitchCase="'Two'">Two is Selected</div>
+  <div *ngSwitchDefault>Default Option</div>
+</div>
+
+
+<p [ngStyle]="{'background': isBlue ? 'blue' : 'red'}"> I am an Attribute Directive</p>
+
+
+<p class="{{isBlue ? 'blue' : 'red'}}">I am an Attribute Directive</p>
+
+<p  appCustomDeractiveTest>
+  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis quam, nam, tempore obcaecati beatae sunt consequatur inventore, accusantium tenetur impedit autem? Cumque iusto consectetur rerum accusamus, consequuntur inventore obcaecati quas?
+</p>

@@ -1,0 +1,18 @@
+@mixin name {
+  display:inline-block;
+background-color: black;
+  padding: 10px;
+
+}
+
+
+.blue{
+  color: rgb(255, 255, 255);
+  display:inline-block;
+  @include name();
+}
+.red{
+  color:  red;
+  @include name();
+}
+
